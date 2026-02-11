@@ -1,0 +1,34 @@
+﻿@using DiscordTestProctor.Infrastructure.Identity
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string? returnUrl = null;
+    var query = ViewContext.HttpContext.Request.Query;
+    if (query.ContainsKey("returnUrl"))
+    {
+        returnUrl = query["returnUrl"];
+    }
+}
+
+<div class="identity-helper">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="identity-helper">
+            Signed in as <strong>@User.Identity!.Name</strong>.
+        </div>
+        <form class="identity-form" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+            <button type="submit" class="identity-button secondary">Log out</button>
+        </form>
+    }
+    else
+    {
+        <div class="identity-helper">
+            New here? <a asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Create an account</a>
+        </div>
+        <div class="identity-helper">
+            Already have one? <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Log in</a>
+        </div>
+    }
+</div>

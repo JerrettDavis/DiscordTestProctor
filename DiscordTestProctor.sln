@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "DiscordTestProctor\src\AppHost\AppHost.csproj", "{57F74814-A78C-4A8D-85A5-C5B0805AA687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "DiscordTestProctor\src\Application\Application.csproj", "{7B6E6980-7503-4B89-8048-068592217D20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "DiscordTestProctor\src\Domain\Domain.csproj", "{BD122AF2-DCCA-43A5-BD4B-16F67E72B01A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "DiscordTestProctor\src\Infrastructure\Infrastructure.csproj", "{3B60AB05-0D66-4BE2-98F2-651649E72862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "DiscordTestProctor\src\ServiceDefaults\ServiceDefaults.csproj", "{6C920009-2794-4D07-ACF5-1D251BC5C7CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "DiscordTestProctor\src\Web\Web.csproj", "{C749BD3C-F956-49B7-ABB1-3B689F8055FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.FunctionalTests", "DiscordTestProctor\tests\Application.FunctionalTests\Application.FunctionalTests.csproj", "{6D183DC4-3842-4D7F-8238-24E67543E9CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "DiscordTestProctor\tests\Application.UnitTests\Application.UnitTests.csproj", "{11D20A0F-AD91-4E10-A8B9-64C11FA927A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UnitTests", "DiscordTestProctor\tests\Domain.UnitTests\Domain.UnitTests.csproj", "{EA8BD774-6D9C-4B1F-AB53-19013712C17D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.IntegrationTests", "DiscordTestProctor\tests\Infrastructure.IntegrationTests\Infrastructure.IntegrationTests.csproj", "{C2F7BB46-52E9-4CC6-9EA0-4ACB942642C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.AcceptanceTests", "DiscordTestProctor\tests\Web.AcceptanceTests\Web.AcceptanceTests.csproj", "{2FC33058-1B06-45D3-A04C-DBBB8B579320}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57F74814-A78C-4A8D-85A5-C5B0805AA687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F74814-A78C-4A8D-85A5-C5B0805AA687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F74814-A78C-4A8D-85A5-C5B0805AA687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F74814-A78C-4A8D-85A5-C5B0805AA687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B6E6980-7503-4B89-8048-068592217D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B6E6980-7503-4B89-8048-068592217D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B6E6980-7503-4B89-8048-068592217D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B6E6980-7503-4B89-8048-068592217D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD122AF2-DCCA-43A5-BD4B-16F67E72B01A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD122AF2-DCCA-43A5-BD4B-16F67E72B01A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD122AF2-DCCA-43A5-BD4B-16F67E72B01A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD122AF2-DCCA-43A5-BD4B-16F67E72B01A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B60AB05-0D66-4BE2-98F2-651649E72862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B60AB05-0D66-4BE2-98F2-651649E72862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B60AB05-0D66-4BE2-98F2-651649E72862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B60AB05-0D66-4BE2-98F2-651649E72862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C920009-2794-4D07-ACF5-1D251BC5C7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C920009-2794-4D07-ACF5-1D251BC5C7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C920009-2794-4D07-ACF5-1D251BC5C7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C920009-2794-4D07-ACF5-1D251BC5C7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C749BD3C-F956-49B7-ABB1-3B689F8055FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C749BD3C-F956-49B7-ABB1-3B689F8055FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C749BD3C-F956-49B7-ABB1-3B689F8055FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C749BD3C-F956-49B7-ABB1-3B689F8055FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D183DC4-3842-4D7F-8238-24E67543E9CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D183DC4-3842-4D7F-8238-24E67543E9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D183DC4-3842-4D7F-8238-24E67543E9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D183DC4-3842-4D7F-8238-24E67543E9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D20A0F-AD91-4E10-A8B9-64C11FA927A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D20A0F-AD91-4E10-A8B9-64C11FA927A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D20A0F-AD91-4E10-A8B9-64C11FA927A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D20A0F-AD91-4E10-A8B9-64C11FA927A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA8BD774-6D9C-4B1F-AB53-19013712C17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8BD774-6D9C-4B1F-AB53-19013712C17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8BD774-6D9C-4B1F-AB53-19013712C17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8BD774-6D9C-4B1F-AB53-19013712C17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F7BB46-52E9-4CC6-9EA0-4ACB942642C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F7BB46-52E9-4CC6-9EA0-4ACB942642C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F7BB46-52E9-4CC6-9EA0-4ACB942642C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F7BB46-52E9-4CC6-9EA0-4ACB942642C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC33058-1B06-45D3-A04C-DBBB8B579320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC33058-1B06-45D3-A04C-DBBB8B579320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC33058-1B06-45D3-A04C-DBBB8B579320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC33058-1B06-45D3-A04C-DBBB8B579320}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

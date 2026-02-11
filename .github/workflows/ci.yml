@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      NUGET_XMLDOC_MODE: skip
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: 'DiscordTestProctor/global.json'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: DiscordTestProctor/src/Web/ClientApp/package-lock.json
+
+      - name: Restore
+        run: dotnet restore DiscordTestProctor.sln
+
+      - name: Build
+        run: dotnet build DiscordTestProctor.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test DiscordTestProctor.sln -c Release --no-build --filter "FullyQualifiedName!~AcceptanceTests"
+
+      - name: Client install
+        working-directory: DiscordTestProctor/src/Web/ClientApp
+        run: npm ci
+
+      - name: Client lint
+        working-directory: DiscordTestProctor/src/Web/ClientApp
+        run: npm run lint
+
+      - name: Client build
+        working-directory: DiscordTestProctor/src/Web/ClientApp
+        run: npm run build

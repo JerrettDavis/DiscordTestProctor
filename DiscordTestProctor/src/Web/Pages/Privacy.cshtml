@@ -1,0 +1,48 @@
+@page
+@model Microsoft.AspNetCore.Mvc.RazorPages.PageModel
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<div class="identity-stack">
+    <h1>Privacy Policy</h1>
+    <p class="identity-helper">Effective: February 11, 2026</p>
+
+    <p>
+        Janus Proctor Console helps Discord communities administer certifications and exams. We only
+        collect data needed to operate the service and maintain auditability for exam outcomes.
+    </p>
+
+    <h2>Information we store</h2>
+    <ul class="list">
+        <li>Discord guild identifiers and names to connect exams to a server.</li>
+        <li>Discord user identifiers and display names for exam sessions.</li>
+        <li>Certification, question, and result data created by administrators.</li>
+        <li>Operational telemetry such as timestamps and sync activity.</li>
+    </ul>
+
+    <h2>How we use data</h2>
+    <ul class="list">
+        <li>Deliver certifications, exams, and role assignments.</li>
+        <li>Provide audit trails for administrators in the dashboard.</li>
+        <li>Improve reliability, security, and support experiences.</li>
+    </ul>
+
+    <h2>Data retention</h2>
+    <p>
+        Data remains in the configured database until administrators remove certifications, results,
+        or disconnect the bot from a guild. You control the infrastructure when self-hosting.
+    </p>
+
+    <h2>Sharing</h2>
+    <p>
+        We do not sell data. Data is only shared with Discord as required to fulfill commands and
+        role assignments. Self-hosted deployments keep data within your infrastructure.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+        If you need assistance or want data removed, contact your deployment administrator or open
+        a support request in the repository.
+    </p>
+</div>

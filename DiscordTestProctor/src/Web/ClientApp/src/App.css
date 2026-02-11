@@ -1,0 +1,49 @@
+@keyframes float-slow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100%;
+  animation: fade-in-up 0.6s ease-out;
+}
+
+.app-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.08), transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(250, 204, 21, 0.12), transparent 45%),
+    radial-gradient(circle at 30% 90%, rgba(14, 116, 144, 0.1), transparent 40%);
+  z-index: 0;
+}
+
+.app-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ambient-float {
+  animation: float-slow 12s ease-in-out infinite;
+}
