@@ -1,0 +1,117 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 0.1.0)'
+        required: true
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: DiscordTestProctor/src/Web/ClientApp/package-lock.json
+
+      - name: Restore dependencies
+        run: dotnet restore DiscordTestProctor.sln
+
+      - name: Build solution
+        run: dotnet build DiscordTestProctor.sln --configuration Release --no-restore
+
+      - name: Publish Web
+        run: |
+          dotnet publish DiscordTestProctor/src/Web/Web.csproj \
+            --configuration Release \
+            --output ./publish/web \
+            -p:Version=${{ steps.version.outputs.version }}
+
+      - name: Publish AppHost
+        run: |
+          dotnet publish DiscordTestProctor/src/AppHost/AppHost.csproj \
+            --configuration Release \
+            --output ./publish/apphost \
+            -p:Version=${{ steps.version.outputs.version }}
+
+      - name: Create release bundles
+        run: |
+          mkdir -p release
+          cd publish
+          zip -r ../release/janus-proctor-web-${{ steps.version.outputs.version }}.zip web
+          zip -r ../release/janus-proctor-apphost-${{ steps.version.outputs.version }}.zip apphost
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          VERSION="v${{ steps.version.outputs.version }}"
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+
+          if [ -n "$PREV_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" $PREV_TAG..HEAD)
+          else
+            COMMITS=$(git log --pretty=format:"- %s (%h)" --max-count=50)
+          fi
+
+          cat << EOF > release-notes.md
+          ## What's Changed
+
+          $COMMITS
+
+          ## Assets
+
+          - janus-proctor-web-${{ steps.version.outputs.version }}.zip
+          - janus-proctor-apphost-${{ steps.version.outputs.version }}.zip
+          EOF
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.version, '-') }}
+          generate_release_notes: false
+          files: |
+            release/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

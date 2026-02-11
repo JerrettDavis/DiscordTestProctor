@@ -1,25 +1,61 @@
-name: ci
+name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  SOLUTION_NAME: DiscordTestProctor.sln
+  DOTNET_VERSION: '10.0.x'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
 
 jobs:
   build:
+    name: Build & Test
     runs-on: ubuntu-latest
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-      NUGET_XMLDOC_MODE: skip
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          global-json-file: 'DiscordTestProctor/global.json'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.NUGET_PACKAGES }}
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Build.props', '**/Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.SOLUTION_NAME }}
+
+      - name: Build solution
+        run: dotnet build ${{ env.SOLUTION_NAME }} --no-restore --configuration Release
+
+      - name: Run tests (excluding acceptance)
+        run: |
+          dotnet test ${{ env.SOLUTION_NAME }} \
+            --no-build \
+            --configuration Release \
+            --verbosity normal \
+            --filter "FullyQualifiedName!~AcceptanceTests"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -27,15 +63,6 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: DiscordTestProctor/src/Web/ClientApp/package-lock.json
-
-      - name: Restore
-        run: dotnet restore DiscordTestProctor.sln
-
-      - name: Build
-        run: dotnet build DiscordTestProctor.sln -c Release --no-restore
-
-      - name: Test
-        run: dotnet test DiscordTestProctor.sln -c Release --no-build --filter "FullyQualifiedName!~AcceptanceTests"
 
       - name: Client install
         working-directory: DiscordTestProctor/src/Web/ClientApp
@@ -47,4 +74,6 @@ jobs:
 
       - name: Client build
         working-directory: DiscordTestProctor/src/Web/ClientApp
+        env:
+          VITE_BASE_URL: /
         run: npm run build

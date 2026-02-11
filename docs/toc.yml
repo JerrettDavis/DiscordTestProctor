@@ -1,0 +1,6 @@
+- name: Home
+  href: index.md
+- name: Privacy Policy
+  href: PRIVACY.md
+- name: Terms of Service
+  href: TERMS.md

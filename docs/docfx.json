@@ -1,0 +1,25 @@
+{
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.md",
+          "toc.yml"
+        ],
+        "exclude": [
+          "_site/**",
+          "obj/**"
+        ]
+      }
+    ],
+    "resource": [],
+    "dest": "_site",
+    "globalMetadata": {
+      "_appTitle": "Janus Proctor Console",
+      "_appFooter": "© 2026 Janus Proctor"
+    },
+    "template": [
+      "default"
+    ]
+  }
+}
