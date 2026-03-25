@@ -13,6 +13,7 @@ import {
   CreateAnswerRequest,
   GuildDto,
   RankDto,
+  UpsertGuildRequest,
 } from "@/web-api-client"
 
 type CertificationsPageProps = {
@@ -175,7 +176,7 @@ export function CertificationsPage({
     }
 
     try {
-      await client.putApiCertificationsGuilds(guildIdInput, { name: guildNameInput })
+      await client.putApiCertificationsGuilds(guildIdInput, new UpsertGuildRequest({ name: guildNameInput }))
       refreshGuilds()
       onGuildChange(guildIdInput)
       setGuildNameInput("")
@@ -673,7 +674,7 @@ export function CertificationsPage({
                   >
                     <p className="text-sm font-medium">{question.text}</p>
                     <div className="mt-2 grid gap-2 text-xs text-muted-foreground">
-                      {question.answers.map((answer) => (
+                      {(question.answers ?? []).map((answer) => (
                         <div
                           key={answer.id}
                           className={`rounded-md px-2 py-1 ${

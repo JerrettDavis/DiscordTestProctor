@@ -239,14 +239,14 @@ export function QuestionsPage({
 
           <div className="mt-6 space-y-3">
             <p className="text-sm font-medium">Existing questions</p>
-            {detail?.questions.map((question) => (
+            {(detail?.questions ?? []).map((question) => (
               <div
                 key={question.id}
                 className="rounded-xl border border-border/60 bg-background/70 p-4"
               >
                 <p className="text-sm font-medium">{question.text}</p>
                 <div className="mt-2 grid gap-2 text-xs text-muted-foreground">
-                  {question.answers.map((answer) => (
+                  {(question.answers ?? []).map((answer) => (
                     <div
                       key={answer.id}
                       className={`rounded-md px-2 py-1 ${
@@ -259,7 +259,7 @@ export function QuestionsPage({
                 </div>
               </div>
             ))}
-            {detail && detail.questions.length === 0 && (
+            {detail && (detail.questions ?? []).length === 0 && (
               <p className="text-xs text-muted-foreground">
                 No questions yet for this certification.
               </p>

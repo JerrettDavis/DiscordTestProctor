@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { CertificationsClient, GuildDto, RankDto } from "@/web-api-client"
+import { CertificationsClient, GuildDto, RankDto, UpsertGuildRequest, UpsertRankRequest } from "@/web-api-client"
 
 type GuildsPageProps = {
   client: CertificationsClient
@@ -58,7 +58,7 @@ export function GuildsPage({
       return
     }
     try {
-      await client.putApiCertificationsGuilds(guildIdInput, { name: guildNameInput })
+      await client.putApiCertificationsGuilds(guildIdInput, new UpsertGuildRequest({ name: guildNameInput }))
       refreshGuilds()
       onGuildChange(guildIdInput)
       setGuildNameInput("")
@@ -76,7 +76,7 @@ export function GuildsPage({
       return
     }
     try {
-      await client.putApiCertificationsGuildsRanks(guildIdInput, roleIdInput, { name: roleNameInput })
+      await client.putApiCertificationsGuildsRanks(guildIdInput, roleIdInput, new UpsertRankRequest({ name: roleNameInput }))
       setRoleIdInput("")
       setRoleNameInput("")
       if (activeGuildId === guildIdInput) {
