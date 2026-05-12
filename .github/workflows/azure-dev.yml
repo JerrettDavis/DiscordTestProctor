@@ -17,29 +17,30 @@ permissions:
   contents: read
 
 jobs:
-  skipped:
-    runs-on: ubuntu-latest
-    if: ${{ vars.AZURE_CLIENT_ID == '' && secrets.AZURE_CREDENTIALS == '' }}
-    steps:
-      - run: echo "Azure deployment is not configured for this repository."
-
   build:
     runs-on: ubuntu-latest
-    if: ${{ vars.AZURE_CLIENT_ID != '' || secrets.AZURE_CREDENTIALS != '' }}
     env:
       AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
       AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
     steps:
+      - name: Skip when Azure deployment is not configured
+        if: ${{ env.AZURE_CLIENT_ID == '' && env.AZURE_CREDENTIALS == '' }}
+        run: echo "Azure deployment is not configured for this repository."
+
       - name: Checkout
+        if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
         uses: actions/checkout@v4
 
       - name: Install azd
+        if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
         uses: Azure/setup-azd@v1.0.0
 
       - name: Install .NET
+        if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: 'DiscordTestProctor/global.json'
@@ -64,15 +65,15 @@ jobs:
             --client-secret "$($info.clientSecret)" `
             --tenant-id "$($info.tenantId)"
         shell: pwsh
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Provision Infrastructure
+        if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
         run: azd provision --no-prompt
         working-directory: DiscordTestProctor
         env:
           AZD_INITIAL_ENVIRONMENT_CONFIG: ${{ secrets.AZD_INITIAL_ENVIRONMENT_CONFIG }}
 
       - name: Deploy Application
+        if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
         run: azd deploy --no-prompt
         working-directory: DiscordTestProctor
