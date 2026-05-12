@@ -17,6 +17,12 @@ permissions:
   contents: read
 
 jobs:
+  skipped:
+    runs-on: ubuntu-latest
+    if: ${{ vars.AZURE_CLIENT_ID == '' && secrets.AZURE_CREDENTIALS == '' }}
+    steps:
+      - run: echo "Azure deployment is not configured for this repository."
+
   build:
     runs-on: ubuntu-latest
     if: ${{ vars.AZURE_CLIENT_ID != '' || secrets.AZURE_CREDENTIALS != '' }}
