@@ -68,7 +68,7 @@ public class IdentityService(
         var user = await userManager.Users
             .FirstAsync(u => u.Id == userId);
         var logins = await userManager.GetLoginsAsync(user);
-        
+
         return logins.ToDictionary(l => l.LoginProvider, l => l.ProviderKey);
     }
 

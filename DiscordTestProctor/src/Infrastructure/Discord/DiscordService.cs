@@ -7,10 +7,10 @@ using DiscordTestProctor.Domain.Entities;
 namespace DiscordTestProctor.Infrastructure.Discord;
 
 public class DiscordService(
-    Task<DiscordSocketClient> clientFactory)  : IDiscordService
+    Task<DiscordSocketClient> clientFactory) : IDiscordService
 {
     public async Task<IReadOnlyList<Guild>> GetUserGuildsAsync(
-        string userId, 
+        string userId,
         CancellationToken cancellationToken)
     {
         var client = await clientFactory;

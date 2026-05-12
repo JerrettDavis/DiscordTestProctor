@@ -17,7 +17,7 @@ try
 {
     logger.LogInformation("Starting application...");
 
-// Configure the HTTP request pipeline.
+    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment() && !app.Configuration.GetValue<bool>("BUILD_ONLY"))
     {
         logger.LogInformation("Initialising database...");
@@ -57,7 +57,7 @@ catch (Exception ex)
 {
     logger.LogError(ex, "An error occurred while starting the application.");
     throw;
-} 
+}
 finally
 {
     logger.LogInformation("Application stopped.");

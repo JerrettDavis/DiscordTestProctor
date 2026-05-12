@@ -9,7 +9,7 @@ public class GetMeHandler(
     IIdentityService identityService) : IRequestHandler<GetMe, MeVm>
 {
     public async Task<MeVm> Handle(
-        GetMe request, 
+        GetMe request,
         CancellationToken cancellationToken)
     {
         var id = user.Id!;

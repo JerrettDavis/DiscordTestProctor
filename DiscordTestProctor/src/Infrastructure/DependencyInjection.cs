@@ -39,7 +39,7 @@ public static class DependencyInjection
             provider.GetRequiredService<ApplicationDbContext>());
 
         builder.Services.AddScoped<ApplicationDbContextInitializer>();
-        
+
         builder.Services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
@@ -52,7 +52,7 @@ public static class DependencyInjection
                 options.ClientId = builder.Configuration["Discord:ClientId"] ?? throw new InvalidOperationException();
                 options.ClientSecret = builder.Configuration["Discord:ClientSecret"] ?? throw new InvalidOperationException();
                 options.SignInScheme = IdentityConstants.ExternalScheme;
-                
+
                 options.ClaimActions.MapCustomJson("urn:discord:avatar:url", user =>
                                 string.Format(
                                     CultureInfo.InvariantCulture,
@@ -60,12 +60,12 @@ public static class DependencyInjection
                                     user.GetString("id"),
                                     user.GetString("avatar"),
                                     user.GetString("avatar")!.StartsWith("a_") ? "gif" : "png"));
-                
+
                 options.Scope.Add("identify");
                 options.Scope.Add("email");
                 options.Scope.Add("guilds");
-                
-                
+
+
                 options.SaveTokens = true;
             });
 

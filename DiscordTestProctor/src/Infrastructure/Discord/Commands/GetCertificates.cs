@@ -1,13 +1,13 @@
+using System.Collections.Concurrent;
 using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 using DiscordTestProctor.Application.Common.Interfaces;
 using DiscordTestProctor.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Concurrent;
 
 namespace DiscordTestProctor.Infrastructure.Discord.Commands;
 
