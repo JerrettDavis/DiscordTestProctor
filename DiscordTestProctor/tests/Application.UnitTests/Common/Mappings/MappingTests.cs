@@ -6,6 +6,7 @@ using DiscordTestProctor.Application.Common.Models;
 using DiscordTestProctor.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using DiscordTestProctor.Application.TodoLists.Queries.GetTodos;
 using DiscordTestProctor.Domain.Entities;
+using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
 
 namespace DiscordTestProctor.Application.UnitTests.Common.Mappings;
@@ -18,7 +19,8 @@ public class MappingTests
     public MappingTests()
     {
         _configuration = new MapperConfiguration(config =>
-            config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))));
+            config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))),
+            NullLoggerFactory.Instance);
 
         _mapper = _configuration.CreateMapper();
     }
