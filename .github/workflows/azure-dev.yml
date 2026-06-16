@@ -33,15 +33,15 @@ jobs:
 
       - name: Checkout
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install azd
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
-        uses: Azure/setup-azd@v1.0.0
+        uses: Azure/setup-azd@v2.3.0
 
       - name: Install .NET
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           global-json-file: 'DiscordTestProctor/global.json'
 
