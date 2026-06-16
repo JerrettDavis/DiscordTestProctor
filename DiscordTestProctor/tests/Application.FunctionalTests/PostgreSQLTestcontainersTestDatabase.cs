@@ -20,7 +20,7 @@ public class PostgreSQLTestcontainersTestDatabase : ITestDatabase
 
     public PostgreSQLTestcontainersTestDatabase()
     {
-        _container = new PostgreSqlBuilder("postgres:18-alpine")
+        _container = new PostgreSqlBuilder()
             .WithAutoRemove(true)
             .Build();
     }
