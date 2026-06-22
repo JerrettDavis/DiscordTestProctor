@@ -33,7 +33,7 @@ jobs:
 
       - name: Checkout
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install azd
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
