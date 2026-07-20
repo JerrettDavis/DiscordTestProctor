@@ -41,7 +41,7 @@ jobs:
 
       - name: Install .NET
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           global-json-file: 'DiscordTestProctor/global.json'
 
