@@ -37,7 +37,7 @@ jobs:
 
       - name: Install azd
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
-        uses: Azure/setup-azd@v2.3.0
+        uses: Azure/setup-azd@v2.4.0
 
       - name: Install .NET
         if: ${{ env.AZURE_CLIENT_ID != '' || env.AZURE_CREDENTIALS != '' }}
