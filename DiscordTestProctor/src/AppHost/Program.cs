@@ -9,7 +9,7 @@ var postgres = builder
 
 var database = postgres.AddDatabase(databaseName);
 
-builder.AddProject<Projects.Web>("web")
+builder.AddDotnetProject("web", "../Web/Web.csproj")
     .WithReference(database)
     .WaitFor(database);
 
